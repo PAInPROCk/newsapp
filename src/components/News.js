@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem';
 import Spinner from './Spinner';
+import PropTypes from 'prop-types'
 
 export class News extends Component {
+  static  defaultProps = {
+    country : '',
+    pageSize : 10,
+    category : 'general',
+  }
+
+  static propTypes = {
+    country : PropTypes.string,
+    pageSize : PropTypes.number,
+    category: PropTypes.string
+  }
+
   constructor() {
     super();
     console.log("Hello I am Constructor from news component");
@@ -19,7 +32,7 @@ export class News extends Component {
   }
 
   fetchNews = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?q=trump&apiKey=998bc00b54a6455cb3677f195867e1b0&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=998bc00b54a6455cb3677f195867e1b0&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -47,6 +60,7 @@ export class News extends Component {
 
   render() {
     return (
+      
       <div className="container my-3">
         <h1 className="text-center">News Monkey - Top Headlines</h1>
         {this.state.loading && <Spinner />}
@@ -90,6 +104,7 @@ export class News extends Component {
         </div>
       </div>
     );
+    
   }
 }
 
