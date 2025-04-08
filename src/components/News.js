@@ -18,7 +18,6 @@ export class News extends Component {
 
   constructor() {
     super();
-    console.log("Hello I am Constructor from news component");
     this.state = {
       articles: [],
       loading: false,
@@ -45,14 +44,12 @@ export class News extends Component {
   };
 
   handlePreviousClick = async () => {
-    console.log("Previous");
     if (this.state.page > 1) {
       this.setState({ page: this.state.page - 1 }, this.fetchNews);
     }
   };
 
   handleNextClick = async () => {
-    console.log("Next");
     if (this.state.page + 1 <= Math.ceil(this.state.totalResults / this.props.pageSize)) {
       this.setState({ page: this.state.page + 1 }, this.fetchNews);
     }
