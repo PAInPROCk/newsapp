@@ -13,7 +13,7 @@ export class NewsItem extends Component {
               <h5 className="card-title">{title}</h5>
                 <p className="card-text"><small>By {author? author : "unknown"} on {new Date(date).toUTCString()}</small></p> 
               <p className="card-text">{description}</p>
-              <span class="badge text-bg-secondary">{source}</span><br></br>
+              <span className="badge text-bg-secondary">{source}</span><br></br>
               <a href={newsUrl} target='_blank' className="btn btn-sm btn-dark">Read More...</a>
             </div>
         </div>
