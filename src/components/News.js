@@ -4,6 +4,7 @@ import Spinner from './Spinner';
 import PropTypes from 'prop-types';
 import InfiniteScroll from "react-infinite-scroll-component";
 
+
 export class News extends Component {
   static defaultProps = {
     country: '',
@@ -14,7 +15,8 @@ export class News extends Component {
   static propTypes = {
     country: PropTypes.string,
     pageSize: PropTypes.number,
-    category: PropTypes.string
+    category: PropTypes.string,
+    setProgress: PropTypes.func
   }
 
   capitalizeFirstLetter = (string) => {
@@ -37,16 +39,20 @@ export class News extends Component {
   }
 
   fetchNews = async () => {
+    this.props.setProgress(10);
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=998bc00b54a6455cb3677f195867e1b0&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
+    this.props.setProgress(30);
     let parsedData = await data.json();
+    this.props.setProgress(60);
     console.log(parsedData);
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       loading: false,
     });
+    this.props.setProgress(100);
   };
 
   handlePreviousClick = async () => {
@@ -73,8 +79,11 @@ export class News extends Component {
     });
   };
 
+  
+
   render() {
     return (
+      
       <>
         <h1 className="text-center" style={{ margin: '35px 0px' }}>
           News Monkey - Top {this.capitalizeFirstLetter(this.props.category)} Headlines
