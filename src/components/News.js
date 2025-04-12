@@ -62,7 +62,7 @@ const News = (props) => {
 
   return (
     <>
-      <h1 className="text-center" style={{ margin: '35px 0px' }}>
+      <h1 className="text-center" style={{ margin: '35px 0px', marginTop: '75px'}}>
         News Monkey - Top {capitalizeFirstLetter(props.category)} Headlines
       </h1>
       {loading && <Spinner />}
